@@ -3,7 +3,7 @@ import google.generativeai as palm
 import os
 import openai
 
-api = ""
+api = "AIzaSyBCBe4G5SzY-HPMqQwFpl11_HiQA1T2_WA"
 palm.configure(api_key=api)
 model = {"model": "models/chat-bison-001"}
 
