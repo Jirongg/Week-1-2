@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from textblob import TextBlob
 import google.generativeai as palm
 import os
 import openai
@@ -43,6 +44,22 @@ def singapore_joke():
 @app.route("/prediction", methods=["GET", "POST"])
 def prediction():
     return render_template("index.html")
+
+# New TextBlob route for sentiment analysis
+@app.route("/textblob_analysis", methods=["POST"])
+def textblob_analysis():
+    # Get the input from the form
+    text = request.form.get("text")
+    
+    if text:
+        # Use TextBlob to perform sentiment analysis
+        blob = TextBlob(text)
+        sentiment = blob.sentiment
+        
+        # Return the result to a new template
+        return render_template("textblob_result.html", sentiment=sentiment)
+    else:
+        return "Please provide text for analysis."
 
 if __name__ == "__main__":
     app.run(debug=True)
