@@ -37,7 +37,6 @@ def ai_agent_reply():
 
 @app.route("/singapore_joke", methods=["POST"])
 def singapore_joke():
-    # A common joke in Singapore
     joke = "The only thing faster than Singapore's MRT during peak hours is the way we 'chope' seats with a tissue packet."
     return render_template("joke.html", joke=joke)
 
@@ -45,18 +44,17 @@ def singapore_joke():
 def prediction():
     return render_template("index.html")
 
-# New TextBlob route for sentiment analysis
+@app.route("/textblob", methods=["GET"])
+def textblob():
+    return render_template("textblob.html")
+
 @app.route("/textblob_analysis", methods=["POST"])
 def textblob_analysis():
-    # Get the input from the form
     text = request.form.get("text")
     
     if text:
-        # Use TextBlob to perform sentiment analysis
         blob = TextBlob(text)
         sentiment = blob.sentiment
-        
-        # Return the result to a new template
         return render_template("textblob_result.html", sentiment=sentiment)
     else:
         return "Please provide text for analysis."
